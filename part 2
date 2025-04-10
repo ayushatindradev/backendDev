@@ -1,0 +1,45 @@
+
+part 2: Express.js - Quick Revision Notes
+What is Express.js?
+- Minimal, fast, and flexible Node.js web framework.
+- Simplifies routing, handling requests/responses, and middleware integration.
+Basic Setup:
+npm init -y
+npm install express
+const express = require('express');
+const app = express();
+app.listen(3000, () => {
+ console.log('Server running...');
+});
+Routing:
+app.get('/', (req, res) => res.send("Home"));
+app.post('/user', (req, res) => { ... });
+app.put('/user/:id', (req, res) => { ... });
+app.delete('/user/:id', (req, res) => { ... });
+- req.params -> Route parameters (e.g., /user/:id)
+- req.query -> Query parameters (e.g., /search?q=abc)
+Middleware:
+- Functions that run between request and response.
+app.use(express.json()); // Parse JSON body
+app.use((req, res, next) => {
+ console.log(`${req.method} ${req.url}`);
+ next();
+});
+CRUD API Example:
+let notes = [];
+app.post('/notes', (req, res) => {
+ const note = req.body;
+ notes.push(note);
+ res.status(201).json(note);
+});
+app.get('/notes', (req, res) => res.json(notes));
+Status Codes:
+- 200 OK: Success
+- 201 Created: Resource created
+- 400 Bad Request: Client error
+- 404 Not Found: Resource not found
+- 500 Internal Server Error: Server crash
+Best Practices:
+- Use .env + dotenv for environment variables
+- Organize code: routes, controllers, middleware folders
+- Always validate request body
