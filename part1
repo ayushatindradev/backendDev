@@ -1,0 +1,37 @@
+
+Part 1: Node.js - Quick Revision Notes
+What is Node.js?
+- JavaScript runtime built on Chrome's V8 engine
+- Runs JS outside the browser
+- Enables backend/server-side development with JavaScript
+Why Use Node.js?
+- Non-blocking, asynchronous I/O
+- Event-driven architecture
+- Fast & scalable
+- Large ecosystem (npm)
+HTTP Server with Node.js:
+const http = require('http');
+const server = http.createServer((req, res) => {
+ res.setHeader("Content-Type", "text/html");
+ res.end("<h1>Hello World</h1>");
+});
+server.listen(3000);
+Built-in Node Modules:
+- fs: File System - read/write files
+- path: Handles file paths
+- http: Create server
+- os: Info about OS
+- events: EventEmitter for async events
+File System Example:
+const fs = require('fs');
+fs.writeFileSync('hello.txt', 'Hello from Node!');
+Command Line Arguments:
+node greet.js Ayush
+const name = process.argv[2];
+Node Project Setup:
+npm init -y # Initialize package.json
+node app.js # Run file
+Routing (Basic):
+if (req.url === "/about") {
+ res.end("About Page");
+}
