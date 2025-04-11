@@ -1,0 +1,46 @@
+Part3 3: MongoDB + Mongoose - Quick Revision Notes
+
+What is MongoDB?
+- NoSQL document database
+- Stores data as JSON-like documents
+- Highly flexible, schema-less
+Connecting with Mongoose:
+npm install mongoose
+const mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost:27017/testdb', {
+ useNewUrlParser: true,
+ useUnifiedTopology: true
+})
+.then(() => console.log("Connected"))
+.catch(err => console.log(err));
+Mongoose Schema & Model:
+const noteSchema = new mongoose.Schema({
+ title: String,
+ content: String,
+ createdAt: {
+ type: Date,
+ default: Date.now
+ }
+});
+const Note = mongoose.model('Note', noteSchema);
+CRUD with Mongoose:
+Create:
+const newNote = new Note({ title: "Hello", content: "World" });
+await newNote.save();
+Read:
+const allNotes = await Note.find();
+const oneNote = await Note.findById(id);
+Update:
+await Note.findByIdAndUpdate(id, { title: "Updated" });
+Delete:
+await Note.findByIdAndDelete(id);
+Integration with Express:
+app.get('/notes', async (req, res) => {
+ const notes = await Note.find();
+ res.json(notes);
+});
+Best Practices:
+- Use .env for DB connection
+- Organize code: models/, routes/, controllers/
+- Wrap DB calls in try-catch
+- Validate inputs
